@@ -8,7 +8,7 @@ class MealDetailScreen extends StatelessWidget {
   final Function toggleFavourites;
   final Function isMealFavourite;
 
-  MealDetailScreen(this.toggleFavourites,this.isMealFavourite);
+  MealDetailScreen({this.toggleFavourites, this.isMealFavourite});
 
   Widget buildSectionTitle(BuildContext context, String text) {
     return Container(
@@ -20,7 +20,7 @@ class MealDetailScreen extends StatelessWidget {
     );
   }
 
-  Widget buildContainer(Widget child) {
+  Widget buildContainer(Widget child, BuildContext context) {
     return Container(
       decoration: BoxDecoration(
         color: Colors.white,
@@ -29,8 +29,8 @@ class MealDetailScreen extends StatelessWidget {
       ),
       margin: EdgeInsets.all(10),
       padding: EdgeInsets.all(10),
-      height: 150,
-      width: 300,
+      height: MediaQuery.of(context).size.height * 0.3,
+      width: MediaQuery.of(context).size.width * 0.9,
       child: child,
     );
   }
@@ -68,24 +68,29 @@ class MealDetailScreen extends StatelessWidget {
                 ),
                 itemCount: selectedMeal.ingredients.length,
               ),
+              context,
             ),
             buildSectionTitle(context, 'Steps'),
-            buildContainer(
-              ListView.builder(
-                itemBuilder: (ctx, index) => Column(
-                  children: [
-                    ListTile(
-                      leading: CircleAvatar(
-                        child: Text('# ${(index + 1)}'),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 40),
+              child: buildContainer(
+                ListView.builder(
+                  itemBuilder: (ctx, index) => Column(
+                    children: [
+                      ListTile(
+                        leading: CircleAvatar(
+                          child: Text('# ${(index + 1)}'),
+                        ),
+                        title: Text(
+                          selectedMeal.steps[index],
+                        ),
                       ),
-                      title: Text(
-                        selectedMeal.steps[index],
-                      ),
-                    ),
-                    Divider()
-                  ],
+                      Divider()
+                    ],
+                  ),
+                  itemCount: selectedMeal.steps.length,
                 ),
-                itemCount: selectedMeal.steps.length,
+                context,
               ),
             ),
           ],
@@ -93,9 +98,9 @@ class MealDetailScreen extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         child: Icon(
-          isMealFavourite(selectedMeal.id)? Icons.star:Icons.star_border,
+          isMealFavourite(selectedMeal.id) ? Icons.star : Icons.star_border,
         ),
-        onPressed: ()=>toggleFavourites(selectedMeal.id),
+        onPressed: () => toggleFavourites(selectedMeal.id),
       ),
     );
   }

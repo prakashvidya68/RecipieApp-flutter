@@ -8,49 +8,17 @@ class MealItem extends StatelessWidget {
   final String title;
   final String imageUrl;
   final int duration;
-  final Complexity complexity;
-  final Affordability affordability;
+  final String complexity;
+  final String affordability;
 
-  MealItem(
-      {@required this.id,
-      @required this.title,
-      @required this.imageUrl,
-      @required this.affordability,
-      @required this.complexity,
-      @required this.duration,});
-
-  String get complexityText {
-    switch (complexity) {
-      case Complexity.Simple:
-        return 'Simple';
-        break;
-      case Complexity.Challenging:
-        return 'Challenging';
-        break;
-      case Complexity.Hard:
-        return 'Hard';
-        break;
-      default:
-        return 'Unknown';
-    }
-  }
-
-  String get affordabilityText {
-    switch (affordability) {
-      case Affordability.Affordable:
-        return 'Affordable';
-        break;
-      case Affordability.Pricey:
-        return 'Pricey';
-        break;
-      case Affordability.Luxurious:
-        return 'Expensive';
-        break;
-      default:
-        return 'Unknown';
-    }
-  }
-
+  MealItem({
+    @required this.id,
+    @required this.title,
+    @required this.imageUrl,
+    @required this.affordability,
+    @required this.complexity,
+    @required this.duration,
+  });
   void selectMeal(BuildContext context) {
     Navigator.of(context)
         .pushNamed(
@@ -137,7 +105,7 @@ class MealItem extends StatelessWidget {
                       SizedBox(
                         width: 6,
                       ),
-                      Text(complexityText),
+                      Text(complexity),
                     ],
                   ),
                   Row(
@@ -148,7 +116,7 @@ class MealItem extends StatelessWidget {
                       SizedBox(
                         width: 6,
                       ),
-                      Text(affordabilityText),
+                      Text(affordability),
                     ],
                   ),
                 ],

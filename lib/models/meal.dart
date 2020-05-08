@@ -1,10 +1,10 @@
 import 'package:flutter/foundation.dart';
 
-enum Complexity {
-  Simple,
-  Challenging,
-  Hard,
-}
+// enum Complexity {
+//   Simple,
+//   Challenging,
+//   Hard,
+// }
 
 enum Affordability {
   Affordable,
@@ -14,14 +14,14 @@ enum Affordability {
 
 class Meal {
   final String id;
-  final List<String> categories;
+  final List<dynamic> categories;
   final String title;
   final String imageUrl;
-  final List<String> ingredients;
-  final List<String> steps;
+  final List<dynamic> ingredients;
+  final List<dynamic> steps;
   final int duration;
-  final Complexity complexity;
-  final Affordability affordability;
+  final String complexity;
+  final String affordability;
   final bool isGlutenFree;
   final bool isLactoseFree;
   final bool isVegan;
@@ -42,4 +42,38 @@ class Meal {
     @required this.isVegan,
     @required this.isVegetarian,
   });
+  factory Meal.fromMap(Map<dynamic, dynamic> doc) {
+    return Meal(
+      id: doc['id'],
+      categories: doc['categories'],
+      title: doc['title'],
+      imageUrl: doc['imageUrl'],
+      ingredients: doc['ingredients'],
+      steps: doc['steps'],
+      duration: doc['duration'],
+      complexity: doc['complexity'],
+      affordability: doc['affordability'],
+      isGlutenFree: doc['isGlutenFree'],
+      isLactoseFree: doc['isLactoseFree'],
+      isVegan: doc['isVegan'],
+      isVegetarian: doc['isVegetarian'],
+    );
+  }
+  Map<String, dynamic> toMap(Meal meal) {
+    return {
+      'id': meal.id,
+      'categories': meal.categories,
+      'title': meal.title,
+      'imageUrl': meal.imageUrl,
+      'ingredients': meal.ingredients,
+      'steps': meal.steps,
+      'duration': meal.duration,
+      'complexity': meal.complexity.toString(),
+      'affordability': meal.affordability.toString(),
+      'isGlutenFree': meal.isGlutenFree,
+      'isLactoseFree': meal.isLactoseFree,
+      'isVegan': meal.isVegan,
+      'isVegetarian': meal.isVegetarian,
+    };
+  }
 }

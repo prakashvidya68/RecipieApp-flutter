@@ -69,6 +69,7 @@ class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'DeliMeals',
       theme: ThemeData(
         primarySwatch: Colors.pink,
@@ -76,18 +77,17 @@ class _MyAppState extends State<MyApp> {
         canvasColor: Color.fromRGBO(255, 254, 229, 1),
         fontFamily: 'Raleway',
         textTheme: ThemeData.light().textTheme.copyWith(
-            bodyText1: TextStyle(
-              color: Color.fromRGBO(20, 51, 51, 1),
-            ),
-            bodyText2: TextStyle(
-              color: Color.fromRGBO(20, 51, 51, 1),
-            ),
-            headline1: TextStyle(
-              fontSize: 20,
-              fontFamily: 'RobotoCondensed',
-              fontWeight: FontWeight.bold,
-            ),
-            
+              bodyText1: TextStyle(
+                color: Color.fromRGBO(20, 51, 51, 1),
+              ),
+              bodyText2: TextStyle(
+                color: Color.fromRGBO(20, 51, 51, 1),
+              ),
+              headline1: TextStyle(
+                fontSize: 20,
+                fontFamily: 'RobotoCondensed',
+                fontWeight: FontWeight.bold,
+              ),
             ),
       ),
       // home: CategoriesScreen(),
@@ -96,7 +96,10 @@ class _MyAppState extends State<MyApp> {
         '/': (ctx) => TabsScreen(_favouriteList),
         CategoryMealsScreen.routeName: (ctx) =>
             CategoryMealsScreen(_availableMeals),
-        MealDetailScreen.routeName: (ctx) => MealDetailScreen(toggleFavourite,_isMealFavoutite),
+        MealDetailScreen.routeName: (ctx) => MealDetailScreen(
+              isMealFavourite: _isMealFavoutite,
+              toggleFavourites: toggleFavourite,
+            ),
         FiltersScreen.routeName: (ctx) => FiltersScreen(_filters, _setFilters),
       },
       onUnknownRoute: (settings) {
